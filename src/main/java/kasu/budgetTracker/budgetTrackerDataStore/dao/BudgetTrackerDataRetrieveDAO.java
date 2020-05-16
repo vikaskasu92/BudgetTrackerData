@@ -56,10 +56,6 @@ public class BudgetTrackerDataRetrieveDAO {
     private String retrieveRawDataByInsuranceAndDate;
     @Value("${retrieve.rawDataByInsuranceByDateCount}")
     private String retrieveRawDataByInsuranceAndDateCount;
-    @Value("${retrieve.rawDataByLoansByDate}")
-    private String retrieveRawDataByLoansAndDate;
-    @Value("${retrieve.rawDataByLoansCount}")
-    private String rawDataByLoansCount;
     @Value("${retrieve.retrieveAllAlarms}")
     private String retrieveAllAlarms;
     @Value("${store.deleteAlarmTriggered}")
@@ -152,12 +148,11 @@ public class BudgetTrackerDataRetrieveDAO {
     @SuppressWarnings({"unchecked","rawtypes"})
     public RawDataByInputAndDateResponseTO retrieveRawDataByInputAndDate(RetrieveRawDataByInputAndDateTO retrieveRawDataByInputAndDateTO) {
         RawDataByInputAndDateResponseTO rawDataByInputAndDateResponseTO = new RawDataByInputAndDateResponseTO();
-        String value = retrieveRawDataByInputAndDateTO.getInputType();
-        switch(value) {
+        switch(retrieveRawDataByInputAndDateTO.getInputType()) {
             case "purchases": {
                 try {
-                    rawDataByInputAndDateResponseTO.setRawData(jdbcTemplate.query(retrieveRawDataByPurchaseAndDate, new Object[]{retrieveRawDataByInputAndDateTO.getFromDate(),retrieveRawDataByInputAndDateTO.getToDate(),retrieveRawDataByInputAndDateTO.getMinPage()}, new BeanPropertyRowMapper(RawDataPurchaseTO.class)));
-                    rawDataByInputAndDateResponseTO.setCount(jdbcTemplate.query(retrieveRawDataByPurchaseAndDateCount, new Object[]{retrieveRawDataByInputAndDateTO.getFromDate(),retrieveRawDataByInputAndDateTO.getToDate()}, new BeanPropertyRowMapper(CountTO.class)));
+                    rawDataByInputAndDateResponseTO.setRawData(jdbcTemplate.query(retrieveRawDataByPurchaseAndDate, new Object[]{retrieveRawDataByInputAndDateTO.getUsername(),retrieveRawDataByInputAndDateTO.getFromDate(),retrieveRawDataByInputAndDateTO.getToDate(),retrieveRawDataByInputAndDateTO.getMinPage()}, new BeanPropertyRowMapper(RawDataPurchaseTO.class)));
+                    rawDataByInputAndDateResponseTO.setCount(jdbcTemplate.query(retrieveRawDataByPurchaseAndDateCount, new Object[]{retrieveRawDataByInputAndDateTO.getUsername(),retrieveRawDataByInputAndDateTO.getFromDate(),retrieveRawDataByInputAndDateTO.getToDate()}, new BeanPropertyRowMapper(CountTO.class)));
                 }catch(DataAccessException e) {
                     LOGGER.error("exception is "+e);
                 }
@@ -165,8 +160,8 @@ public class BudgetTrackerDataRetrieveDAO {
             }
             case "income": {
                 try {
-                    rawDataByInputAndDateResponseTO.setRawData(jdbcTemplate.query(retrieveRawDataByIncomeAndDate, new Object[]{retrieveRawDataByInputAndDateTO.getFromDate(),retrieveRawDataByInputAndDateTO.getToDate(),retrieveRawDataByInputAndDateTO.getMinPage()}, new BeanPropertyRowMapper(RawDataIncomeTO.class)));
-                    rawDataByInputAndDateResponseTO.setCount(jdbcTemplate.query(retrieveRawDataByIncomeAndDateCount, new Object[]{retrieveRawDataByInputAndDateTO.getFromDate(),retrieveRawDataByInputAndDateTO.getToDate()}, new BeanPropertyRowMapper(CountTO.class)));
+                    rawDataByInputAndDateResponseTO.setRawData(jdbcTemplate.query(retrieveRawDataByIncomeAndDate, new Object[]{retrieveRawDataByInputAndDateTO.getUsername(),retrieveRawDataByInputAndDateTO.getFromDate(),retrieveRawDataByInputAndDateTO.getToDate(),retrieveRawDataByInputAndDateTO.getMinPage()}, new BeanPropertyRowMapper(RawDataIncomeTO.class)));
+                    rawDataByInputAndDateResponseTO.setCount(jdbcTemplate.query(retrieveRawDataByIncomeAndDateCount, new Object[]{retrieveRawDataByInputAndDateTO.getUsername(),retrieveRawDataByInputAndDateTO.getFromDate(),retrieveRawDataByInputAndDateTO.getToDate()}, new BeanPropertyRowMapper(CountTO.class)));
                 }catch(DataAccessException e) {
                     LOGGER.error("exception is "+e);
                 }
@@ -174,17 +169,8 @@ public class BudgetTrackerDataRetrieveDAO {
             }
             case "insurance": {
                 try {
-                    rawDataByInputAndDateResponseTO.setRawData(jdbcTemplate.query(retrieveRawDataByInsuranceAndDate, new Object[]{retrieveRawDataByInputAndDateTO.getFromDate(),retrieveRawDataByInputAndDateTO.getToDate(),retrieveRawDataByInputAndDateTO.getMinPage()}, new BeanPropertyRowMapper(RawDataInsuranceTO.class)));
-                    rawDataByInputAndDateResponseTO.setCount(jdbcTemplate.query(retrieveRawDataByInsuranceAndDateCount, new Object[]{retrieveRawDataByInputAndDateTO.getFromDate(),retrieveRawDataByInputAndDateTO.getToDate()}, new BeanPropertyRowMapper(CountTO.class)));
-                }catch(DataAccessException e) {
-                    LOGGER.error("exception is "+e);
-                }
-                break;
-            }
-            case "loans":{
-                try {
-                    rawDataByInputAndDateResponseTO.setRawData(jdbcTemplate.query(retrieveRawDataByLoansAndDate, new Object[]{retrieveRawDataByInputAndDateTO.getMinPage()}, new BeanPropertyRowMapper(RawDataLoansTO.class)));
-                    rawDataByInputAndDateResponseTO.setCount(jdbcTemplate.query(rawDataByLoansCount, new Object[]{}, new BeanPropertyRowMapper(CountTO.class)));
+                    rawDataByInputAndDateResponseTO.setRawData(jdbcTemplate.query(retrieveRawDataByInsuranceAndDate, new Object[]{retrieveRawDataByInputAndDateTO.getUsername(),retrieveRawDataByInputAndDateTO.getFromDate(),retrieveRawDataByInputAndDateTO.getToDate(),retrieveRawDataByInputAndDateTO.getMinPage()}, new BeanPropertyRowMapper(RawDataInsuranceTO.class)));
+                    rawDataByInputAndDateResponseTO.setCount(jdbcTemplate.query(retrieveRawDataByInsuranceAndDateCount, new Object[]{retrieveRawDataByInputAndDateTO.getUsername(),retrieveRawDataByInputAndDateTO.getFromDate(),retrieveRawDataByInputAndDateTO.getToDate()}, new BeanPropertyRowMapper(CountTO.class)));
                 }catch(DataAccessException e) {
                     LOGGER.error("exception is "+e);
                 }
