@@ -7,15 +7,8 @@ public class NewAlarmInputTO extends UserTO{
     private String alarmBy;
     private BigDecimal budgetAmount;
     private String budgetEmail;
-    private boolean alarmSent;
 
-
-    public boolean isAlarmSent() {
-        return alarmSent;
-    }
-    public void setAlarmSent(boolean alarmSent) {
-        this.alarmSent = alarmSent;
-    }
+  
     public String getAlarmBy() {
         return alarmBy;
     }
@@ -38,6 +31,6 @@ public class NewAlarmInputTO extends UserTO{
     @Override
     public String toString() {
         return "NewAlarmInputTo [alarmBy=" + alarmBy + ", budgetAmount=" + budgetAmount + ", budgetEmail=" + budgetEmail
-                + ", alarmSent=" + alarmSent + "]";
+                + "]";
     }
 }

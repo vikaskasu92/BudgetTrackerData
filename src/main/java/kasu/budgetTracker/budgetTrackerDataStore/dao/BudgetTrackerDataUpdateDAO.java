@@ -28,7 +28,7 @@ public class BudgetTrackerDataUpdateDAO {
 
     public void updateCustomerLoanInDB(UpdateCustomerLoanInputTO updateCustomerLoanInputTo){
         try {
-            jdbcTemplate.update(updateCustomerLoan,updateCustomerLoanInputTo.getLoanName(),updateCustomerLoanInputTo.getLoanType(),updateCustomerLoanInputTo.getLoanBalance(),updateCustomerLoanInputTo.getLoanAPR(),updateCustomerLoanInputTo.getLoanEMI(),updateCustomerLoanInputTo.getId());
+            jdbcTemplate.update(updateCustomerLoan,updateCustomerLoanInputTo.getLoanName(),updateCustomerLoanInputTo.getLoanType(),updateCustomerLoanInputTo.getLoanBalance(),updateCustomerLoanInputTo.getLoanAPR(),updateCustomerLoanInputTo.getLoanEMI(),updateCustomerLoanInputTo.getIdToDB());
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
@@ -36,7 +36,7 @@ public class BudgetTrackerDataUpdateDAO {
 
     public void updateInsuranceInDB(UpdateInsuranceInputTO updateInsuranceInputTo){
         try {
-            jdbcTemplate.update(updateInsuranceDataQuery,updateInsuranceInputTo.getInsuranceType(),updateInsuranceInputTo.getInsurnacePaidAmount(), updateInsuranceInputTo.getInsurancePaidDate(),updateInsuranceInputTo.getId());
+            jdbcTemplate.update(updateInsuranceDataQuery,updateInsuranceInputTo.getInsuranceType(),updateInsuranceInputTo.getInsurnacePaidAmount(), updateInsuranceInputTo.getInsurancePaidDateToDB(),updateInsuranceInputTo.getIdToDB());
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
@@ -44,7 +44,7 @@ public class BudgetTrackerDataUpdateDAO {
 
     public void updateIncomeInDB(UpdateIncomeAndTaxesInputTO updateIncomeAndTaxesInputTo){
         try {
-            jdbcTemplate.update(updateIncomeDataQuery,updateIncomeAndTaxesInputTo.getDateRecieved(), updateIncomeAndTaxesInputTo.getFederalTax(),updateIncomeAndTaxesInputTo.getStateTax(),updateIncomeAndTaxesInputTo.getMedicareTax(),updateIncomeAndTaxesInputTo.getSocialSecurityTax(),updateIncomeAndTaxesInputTo.getSalaryRecieved(),updateIncomeAndTaxesInputTo.getId());
+            jdbcTemplate.update(updateIncomeDataQuery,updateIncomeAndTaxesInputTo.getDateRecievedToDB(), updateIncomeAndTaxesInputTo.getFederalTax(),updateIncomeAndTaxesInputTo.getStateTax(),updateIncomeAndTaxesInputTo.getMedicareTax(),updateIncomeAndTaxesInputTo.getSocialSecurityTax(),updateIncomeAndTaxesInputTo.getSalaryRecieved(),updateIncomeAndTaxesInputTo.getIdToDB());
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
@@ -52,7 +52,7 @@ public class BudgetTrackerDataUpdateDAO {
 
     public void updatePurchaseInDB(UpdatePurchaseInputTO updatePurchaseInputTo){
         try {
-            jdbcTemplate.update(updatePurchasesDataQuery,updatePurchaseInputTo.getMainCategory(),updatePurchaseInputTo.getSubCategory(),updatePurchaseInputTo.getItem(),updatePurchaseInputTo.getDate(),updatePurchaseInputTo.getCost(),updatePurchaseInputTo.getId());
+            jdbcTemplate.update(updatePurchasesDataQuery,updatePurchaseInputTo.getMainCategory(),updatePurchaseInputTo.getSubCategory(),updatePurchaseInputTo.getItem(),updatePurchaseInputTo.getDateToDB(),updatePurchaseInputTo.getCost(),updatePurchaseInputTo.getIdToDB());
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
@@ -60,7 +60,7 @@ public class BudgetTrackerDataUpdateDAO {
 
     public void updateLoanToClosedInDB(ChangeCustomerLoanStatusInputTO changeCustomerLoanStatusInputTo){
         try {
-            jdbcTemplate.update(closeCustomerLoan,changeCustomerLoanStatusInputTo.getId());
+            jdbcTemplate.update(closeCustomerLoan,changeCustomerLoanStatusInputTo.getIdToDB());
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
@@ -68,7 +68,7 @@ public class BudgetTrackerDataUpdateDAO {
 
     public void updateLoanToOpenInDB(ChangeCustomerLoanStatusInputTO changeCustomerLoanStatusInputTo){
         try {
-            jdbcTemplate.update(reOpenCustomerLoan,changeCustomerLoanStatusInputTo.getId());
+            jdbcTemplate.update(reOpenCustomerLoan,changeCustomerLoanStatusInputTo.getIdToDB());
         } catch (DataAccessException e) {
             e.printStackTrace();
         }

@@ -6,10 +6,18 @@ import java.time.LocalDate;
 public class NewInsuranceInputTO extends UserTO {
 
     private String insuranceType;
-    private LocalDate insurancePaidDate;
+    private String insurancePaidDate;
+    private LocalDate insurancePaidDateToDB;
     private BigDecimal insurnacePaidAmount;
 
-    public BigDecimal getInsurnacePaidAmount() {
+    
+    public LocalDate getInsurancePaidDateToDB() {
+		return insurancePaidDateToDB;
+	}
+	public void setInsurancePaidDateToDB(LocalDate insurancePaidDateToDB) {
+		this.insurancePaidDateToDB = insurancePaidDateToDB;
+	}
+	public BigDecimal getInsurnacePaidAmount() {
         return insurnacePaidAmount;
     }
     public void setInsurnacePaidAmount(BigDecimal insurnacePaidAmount) {
@@ -21,10 +29,10 @@ public class NewInsuranceInputTO extends UserTO {
     public void setInsuranceType(String insuranceType) {
         this.insuranceType = insuranceType;
     }
-    public LocalDate getInsurancePaidDate() {
+    public String getInsurancePaidDate() {
         return insurancePaidDate;
     }
-    public void setInsurancePaidDate(LocalDate insurancePaidDate) {
+    public void setInsurancePaidDate(String insurancePaidDate) {
         this.insurancePaidDate = insurancePaidDate;
     }
 

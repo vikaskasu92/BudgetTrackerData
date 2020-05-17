@@ -2,12 +2,19 @@ package kasu.budgetTracker.budgetTrackerDataStore.model;
 
 public class UpdateCustomerLoanInputTO extends NewLoanInputTO {
 
-    private int id;
+    private int idToDB;
+    private String id;
 
-    public int getId() {
+    public int getIdToDB() {
+		return idToDB;
+	}
+	public void setIdToDB(int idToDB) {
+		this.idToDB = idToDB;
+	}
+	public String getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

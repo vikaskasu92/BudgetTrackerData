@@ -156,6 +156,11 @@ public class BudgetTrackerDataHelper {
             formStartAndEndDateYearly(initiateAlarmInputTO);
         }
     }
+    
+    public LocalDate formatedDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(date, formatter);
+    }
 
     private void formStartAndEndDateYearly(InitiateAlarmInputTO initiateAlarmInputTO) {
         LocalDate currentdate = LocalDate.now();
@@ -172,11 +177,6 @@ public class BudgetTrackerDataHelper {
         int daysInMonth = yearMonthObject.lengthOfMonth();
         initiateAlarmInputTO.setFromDate(LocalDate.parse(Integer.toString(currentdate.getYear())+"-"+currentMonthUpdated+"-01"));
         initiateAlarmInputTO.setToDate(LocalDate.parse(Integer.toString(currentdate.getYear())+"-"+currentMonthUpdated+"-"+Integer.toString(daysInMonth)));
-    }
-
-    private LocalDate formatedDate(String dates) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDate.parse(dates, formatter);
     }
 
     private String updatedMonthValue(int currentMonth) {

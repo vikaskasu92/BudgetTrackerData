@@ -16,6 +16,7 @@ import kasu.budgetTracker.budgetTrackerDataStore.delegate.BudgetTrackerDataRetri
 import kasu.budgetTracker.budgetTrackerDataStore.helper.BudgetTrackerDataHelper;
 import kasu.budgetTracker.budgetTrackerDataStore.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -77,8 +78,8 @@ public class BudgetTrackerRetrieveDataController {
         return retrieveBudgetTrackerDataDelegate.retrieveAllAlarmsDelegate(budgetTrackerDataHelper.retrieveAllAlarms(username));
     }
 
-    @PostMapping(CHECK_AND_INITIATE_ALARM)
-    public void checkAndInitiateAlarm(@RequestBody List<InitiateAlarmInputTO> initiateAlarmInputTO) {
+    @PostMapping(path=CHECK_AND_INITIATE_ALARM,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void checkAndInitiateAlarm(@ModelAttribute List<InitiateAlarmInputTO> initiateAlarmInputTO) {
         retrieveBudgetTrackerDataDelegate.initiateAlarmsDelegate(initiateAlarmInputTO);
     }
 

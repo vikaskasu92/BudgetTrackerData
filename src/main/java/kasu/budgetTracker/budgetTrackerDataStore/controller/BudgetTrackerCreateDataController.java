@@ -11,6 +11,7 @@ import kasu.budgetTracker.budgetTrackerDataStore.delegate.BudgetTrackerDataCreat
 import kasu.budgetTracker.budgetTrackerDataStore.helper.BudgetTrackerDataHelper;
 import kasu.budgetTracker.budgetTrackerDataStore.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,29 +26,29 @@ public class BudgetTrackerCreateDataController {
     @Autowired
     BudgetTrackerDataHelper budgetTrackerDataHelper;
 
-    @PostMapping(SAVE_PURCHASE_DATA)
-    public void savePurchaseData(@RequestBody @Valid NewPurchaseInputTO newPurchaseInputTo, @RequestParam String username) {
+    @PostMapping(path=SAVE_PURCHASE_DATA,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void savePurchaseData(@ModelAttribute NewPurchaseInputTO newPurchaseInputTo, @RequestParam String username) {
         budgetTrackerCreateDelegate.savePurchaseDataDelegate(budgetTrackerDataHelper.createSavePurchasesInput(newPurchaseInputTo,username));
     }
 
-    @PostMapping(SAVE_INCOME_DATA)
-    public void saveIncomeData(@RequestBody @Valid NewIncomeAndTaxesInputTO newIncomeAndTaxesInputTo, @RequestParam String username) {
+    @PostMapping(path=SAVE_INCOME_DATA,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void saveIncomeData(@ModelAttribute NewIncomeAndTaxesInputTO newIncomeAndTaxesInputTo, @RequestParam String username) {
         budgetTrackerCreateDelegate.saveIncomeDataDelegate(budgetTrackerDataHelper.createNewIncomeDataInput(newIncomeAndTaxesInputTo,username));
     }
 
 
-    @PostMapping(SAVE_INSURANCE_DATA)
-    public void saveInsuranceData(@RequestBody @Valid NewInsuranceInputTO newInsuranceInputTo, @RequestParam String username) {
+    @PostMapping(path=SAVE_INSURANCE_DATA,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void saveInsuranceData(@ModelAttribute NewInsuranceInputTO newInsuranceInputTo, @RequestParam String username) {
         budgetTrackerCreateDelegate.saveInsuranceDataDelegate(budgetTrackerDataHelper.createNewInsuranceDataInput(newInsuranceInputTo,username));
     }
 
-    @PostMapping(SAVE_LOANS_DATA)
-    public void saveLoansData(@RequestBody @Valid NewLoanInputTO newLoanInputTo, @RequestParam String username) {
+    @PostMapping(path=SAVE_LOANS_DATA,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void saveLoansData(@ModelAttribute NewLoanInputTO newLoanInputTo, @RequestParam String username) {
         budgetTrackerCreateDelegate.saveLoansDataDelegate(budgetTrackerDataHelper.createNewLoanInput(newLoanInputTo,username));
     }
 
-    @PostMapping(SAVE_BUDGET_ALARMS_DATA)
-    public void createNewBudgetAlarmInDB(@RequestBody @Valid NewAlarmInputTO newAlarmInputTo, @RequestParam String username) {
+    @PostMapping(path=SAVE_BUDGET_ALARMS_DATA,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void createNewBudgetAlarmInDB(@ModelAttribute NewAlarmInputTO newAlarmInputTo, @RequestParam String username) {
         budgetTrackerCreateDelegate.saveNewBudgetAlarmDelegate(budgetTrackerDataHelper.createNewAlarmInput(newAlarmInputTo,username));
     }
 

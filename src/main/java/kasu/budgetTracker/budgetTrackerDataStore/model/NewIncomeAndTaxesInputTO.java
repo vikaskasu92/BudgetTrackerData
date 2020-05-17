@@ -6,22 +6,30 @@ import java.time.LocalDate;
 public class NewIncomeAndTaxesInputTO extends UserTO {
 
     private BigDecimal salaryRecieved;
-    private LocalDate dateRecieved;
+    private String dateRecieved;
+    private LocalDate dateRecievedToDB;
     private BigDecimal federalTax;
     private BigDecimal stateTax;
     private BigDecimal medicareTax;
     private BigDecimal socialSecurityTax;
 
-    public BigDecimal getSalaryRecieved() {
+    
+    public LocalDate getDateRecievedToDB() {
+		return dateRecievedToDB;
+	}
+	public void setDateRecievedToDB(LocalDate dateRecievedToDB) {
+		this.dateRecievedToDB = dateRecievedToDB;
+	}
+	public BigDecimal getSalaryRecieved() {
         return salaryRecieved;
     }
     public void setSalaryRecieved(BigDecimal salaryRecieved) {
         this.salaryRecieved = salaryRecieved;
     }
-    public LocalDate getDateRecieved() {
+    public String getDateRecieved() {
         return dateRecieved;
     }
-    public void setDateRecieved(LocalDate dateRecieved) {
+    public void setDateRecieved(String dateRecieved) {
         this.dateRecieved = dateRecieved;
     }
     public BigDecimal getFederalTax() {

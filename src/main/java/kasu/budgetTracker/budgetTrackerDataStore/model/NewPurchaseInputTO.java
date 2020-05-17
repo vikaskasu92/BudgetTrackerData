@@ -3,14 +3,26 @@ package kasu.budgetTracker.budgetTrackerDataStore.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import kasu.budgetTracker.budgetTrackerDataStore.helper.BudgetTrackerDataHelper;
+
 public class NewPurchaseInputTO extends UserTO{
 
     private String item;
     private BigDecimal cost;
-    private LocalDate date;
-    private String mainCategory;
+    private String date;
+    private LocalDate dateToDB;
+	private String mainCategory;
     private String subCategory;
 
+    public LocalDate getDateToDB() {
+		return dateToDB;
+	}
+	public void setDateToDB(LocalDate dateToDB) {
+		this.dateToDB = dateToDB;
+	}
     public String getItem() {
         return item;
     }
@@ -23,10 +35,10 @@ public class NewPurchaseInputTO extends UserTO{
     public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
     public String getMainCategory() {

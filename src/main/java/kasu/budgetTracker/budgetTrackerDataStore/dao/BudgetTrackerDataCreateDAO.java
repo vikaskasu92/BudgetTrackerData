@@ -28,7 +28,7 @@ public class BudgetTrackerDataCreateDAO {
 
     public void savePurchaseDataToDB(NewPurchaseInputTO newPurchaseInputTo){
         try {
-            jdbcTemplate.update(storePurchaseDataQuery,newPurchaseInputTo.getUsername(),newPurchaseInputTo.getMainCategory(), newPurchaseInputTo.getSubCategory(), newPurchaseInputTo.getDate(),newPurchaseInputTo.getCost(),newPurchaseInputTo.getItem());
+            jdbcTemplate.update(storePurchaseDataQuery,newPurchaseInputTo.getUsername(),newPurchaseInputTo.getMainCategory(), newPurchaseInputTo.getSubCategory(), newPurchaseInputTo.getDateToDB(),newPurchaseInputTo.getCost(),newPurchaseInputTo.getItem());
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
@@ -36,7 +36,7 @@ public class BudgetTrackerDataCreateDAO {
 
     public void saveIncomeDataToDB(NewIncomeAndTaxesInputTO newIncomeAndTaxesInputTo){
         try {
-            jdbcTemplate.update(storeIncomeDataQuery, newIncomeAndTaxesInputTo.getUsername(), newIncomeAndTaxesInputTo.getDateRecieved(), newIncomeAndTaxesInputTo.getFederalTax(), newIncomeAndTaxesInputTo.getStateTax(), newIncomeAndTaxesInputTo.getMedicareTax(), newIncomeAndTaxesInputTo.getSocialSecurityTax(), newIncomeAndTaxesInputTo.getSalaryRecieved());
+            jdbcTemplate.update(storeIncomeDataQuery, newIncomeAndTaxesInputTo.getUsername(), newIncomeAndTaxesInputTo.getDateRecievedToDB(), newIncomeAndTaxesInputTo.getFederalTax(), newIncomeAndTaxesInputTo.getStateTax(), newIncomeAndTaxesInputTo.getMedicareTax(), newIncomeAndTaxesInputTo.getSocialSecurityTax(), newIncomeAndTaxesInputTo.getSalaryRecieved());
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
@@ -44,7 +44,7 @@ public class BudgetTrackerDataCreateDAO {
 
     public void saveInsuranceDataToDB(NewInsuranceInputTO newInsuranceInputTo){
         try {
-            jdbcTemplate.update(storeInsuranceDataQuery,newInsuranceInputTo.getUsername(),newInsuranceInputTo.getInsuranceType(),newInsuranceInputTo.getInsurnacePaidAmount(), newInsuranceInputTo.getInsurancePaidDate());
+            jdbcTemplate.update(storeInsuranceDataQuery,newInsuranceInputTo.getUsername(),newInsuranceInputTo.getInsuranceType(),newInsuranceInputTo.getInsurnacePaidAmount(), newInsuranceInputTo.getInsurancePaidDateToDB());
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
