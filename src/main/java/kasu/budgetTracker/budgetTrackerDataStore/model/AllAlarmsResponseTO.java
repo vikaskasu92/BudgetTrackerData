@@ -1,6 +1,5 @@
 package kasu.budgetTracker.budgetTrackerDataStore.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class AllAlarmsResponseTO {
@@ -16,7 +15,11 @@ public class AllAlarmsResponseTO {
     private String user;
     private boolean alarmSent;
 
-    public LocalDate getFromDate() {
+    
+    public float getBudgetAmount() {
+		return budgetAmount;
+	}
+	public LocalDate getFromDate() {
 		return fromDate;
 	}
 	public void setFromDate(LocalDate fromDate) {
