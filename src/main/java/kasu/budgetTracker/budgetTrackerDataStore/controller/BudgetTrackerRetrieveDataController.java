@@ -78,9 +78,4 @@ public class BudgetTrackerRetrieveDataController {
         return retrieveBudgetTrackerDataDelegate.retrieveAllAlarmsDelegate(budgetTrackerDataHelper.retrieveAllAlarms(username));
     }
 
-    @PostMapping(path=CHECK_AND_INITIATE_ALARM,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void checkAndInitiateAlarm(@ModelAttribute List<InitiateAlarmInputTO> initiateAlarmInputTO) {
-        retrieveBudgetTrackerDataDelegate.initiateAlarmsDelegate(initiateAlarmInputTO);
-    }
-
 }

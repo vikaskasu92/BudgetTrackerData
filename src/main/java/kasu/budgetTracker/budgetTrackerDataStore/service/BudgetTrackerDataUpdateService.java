@@ -15,5 +15,7 @@ public interface BudgetTrackerDataUpdateService {
     public void updateLoanStatusToCloseService(ChangeCustomerLoanStatusInputTO changeCustomerLoanStatusInputTo);
 
     public void updateLoanStatusToOpenService(ChangeCustomerLoanStatusInputTO changeCustomerLoanStatusInputTo);
+    
+    public void initiateAlarmsService(UserTO inputTo);
 
 }

@@ -1,17 +1,49 @@
 package kasu.budgetTracker.budgetTrackerDataStore.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class AllAlarmsResponseTO {
 
-    private String alarmBy;
-    private BigDecimal budgetAmount;
+	private float budgetAmount;
+    private LocalDate fromDate;
+    private LocalDate toDate;
     private String budgetEmail;
+    private String alarmBy;
+    private String message;
+    private String subject;
     private int id;
     private String user;
     private boolean alarmSent;
 
-    public boolean isAlarmSent() {
+    public LocalDate getFromDate() {
+		return fromDate;
+	}
+	public void setFromDate(LocalDate fromDate) {
+		this.fromDate = fromDate;
+	}
+	public LocalDate getToDate() {
+		return toDate;
+	}
+	public void setToDate(LocalDate toDate) {
+		this.toDate = toDate;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public void setBudgetAmount(float budgetAmount) {
+		this.budgetAmount = budgetAmount;
+	}
+	public boolean isAlarmSent() {
         return alarmSent;
     }
     public void setAlarmSent(boolean alarmSent) {
@@ -34,12 +66,6 @@ public class AllAlarmsResponseTO {
     }
     public void setAlarmBy(String alarmBy) {
         this.alarmBy = alarmBy;
-    }
-    public BigDecimal getBudgetAmount() {
-        return budgetAmount;
-    }
-    public void setBudgetAmount(BigDecimal budgetAmount) {
-        this.budgetAmount = budgetAmount;
     }
     public String getBudgetEmail() {
         return budgetEmail;

@@ -50,7 +50,4 @@ public class BudgetTrackerDataRetrieveDelegate {
         return budgetTrackerDataRetrieveSo.retrieveAllAlarmsService(inputTo);
     }
 
-    public void initiateAlarmsDelegate(List<InitiateAlarmInputTO> initiateAlarmInputTO) {
-        budgetTrackerDataRetrieveSo.initiateAlarmsService(initiateAlarmInputTO);
-    }
 }

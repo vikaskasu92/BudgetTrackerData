@@ -1,10 +1,25 @@
 package kasu.budgetTracker.budgetTrackerDataStore.service;
 
-import kasu.budgetTracker.budgetTrackerDataStore.dao.BudgetTrackerDataUpdateDAO;
-import kasu.budgetTracker.budgetTrackerDataStore.helper.BudgetTrackerDataHelper;
-import kasu.budgetTracker.budgetTrackerDataStore.model.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import kasu.budgetTracker.budgetTrackerDataStore.dao.BudgetTrackerDataRetrieveDAO;
+import kasu.budgetTracker.budgetTrackerDataStore.dao.BudgetTrackerDataUpdateDAO;
+import kasu.budgetTracker.budgetTrackerDataStore.email.RetrieveBudgetTrackerInitiateEmail;
+import kasu.budgetTracker.budgetTrackerDataStore.helper.BudgetTrackerDataHelper;
+import kasu.budgetTracker.budgetTrackerDataStore.model.AllAlarmsResponseTO;
+import kasu.budgetTracker.budgetTrackerDataStore.model.ChangeCustomerLoanStatusInputTO;
+import kasu.budgetTracker.budgetTrackerDataStore.model.InitiateAlarmInputTO;
+import kasu.budgetTracker.budgetTrackerDataStore.model.UpdateCustomerLoanInputTO;
+import kasu.budgetTracker.budgetTrackerDataStore.model.UpdateIncomeAndTaxesInputTO;
+import kasu.budgetTracker.budgetTrackerDataStore.model.UpdateInsuranceInputTO;
+import kasu.budgetTracker.budgetTrackerDataStore.model.UpdatePurchaseInputTO;
+import kasu.budgetTracker.budgetTrackerDataStore.model.UserTO;
 
 @Service
 public class BudgetTrackerDataUpdateSO implements  BudgetTrackerDataUpdateService {
@@ -12,7 +27,11 @@ public class BudgetTrackerDataUpdateSO implements  BudgetTrackerDataUpdateServic
     @Autowired
     BudgetTrackerDataUpdateDAO budgetTrackerDataUpdateDAO;
     @Autowired
+    BudgetTrackerDataRetrieveDAO budgetTrackerDataRetrieveDAO;
+    @Autowired
     BudgetTrackerDataHelper budgetTrackerDataHelper;
+    @Autowired
+    RetrieveBudgetTrackerInitiateEmail retrieveBudgetTrackerInitiateEmail;
 
     @Override
     public void updateCustomerloanService(UpdateCustomerLoanInputTO updateCustomerLoanInputTo){
@@ -52,6 +71,39 @@ public class BudgetTrackerDataUpdateSO implements  BudgetTrackerDataUpdateServic
     public void updateLoanStatusToOpenService(ChangeCustomerLoanStatusInputTO changeCustomerLoanStatusInputTo){
     	setIdToDbForLoansOpenClose(changeCustomerLoanStatusInputTo);
         budgetTrackerDataUpdateDAO.updateLoanToOpenInDB(changeCustomerLoanStatusInputTo);
+    }
+    
+    @Override
+    public void initiateAlarmsService(UserTO inputTo) {
+    	List<AllAlarmsResponseTO> allAlarmsResponseTO = budgetTrackerDataRetrieveDAO.retrieveAllAlarmsFromDB(inputTo);
+    	List<InitiateAlarmInputTO> initiateAlarmInputTO = new ArrayList<>();
+    	for (int i = 0; i < initiateAlarmInputTO.size(); i++) {
+    	     BeanUtils.copyProperties(initiateAlarmInputTO.get(i), allAlarmsResponseTO.get(i));
+    	}
+        for(InitiateAlarmInputTO inputTO:initiateAlarmInputTO) {
+            if(!inputTO.isAlarmSent()) {
+                checkForAlarmIntiation(budgetTrackerDataUpdateDAO.initiateAlarmsCheck(inputTO),inputTO);
+            }
+        }
+    }
+
+    private void checkForAlarmIntiation(Map<String,Object> result,InitiateAlarmInputTO initiateAlarmInputTO) {
+        float expenses = (float) result.get("expenses");
+        if(initiateAlarmInputTO.getBudgetAmount() < expenses){
+            buildSubjectAndMessageForOverBudget(initiateAlarmInputTO,expenses);
+            if(retrieveBudgetTrackerInitiateEmail.triggerEmailToClient(initiateAlarmInputTO.getBudgetEmail(),initiateAlarmInputTO.getSubject(),initiateAlarmInputTO.getMessage())) {
+            	budgetTrackerDataUpdateDAO.deleteAlarmTriggered(initiateAlarmInputTO);
+            }
+        }
+    }
+
+    private void buildSubjectAndMessageForOverBudget(InitiateAlarmInputTO initiateAlarmInputTO, float expenses) {
+        initiateAlarmInputTO.setSubject(initiateAlarmInputTO.getAlarmBy()+" spending limit crossed!");
+        StringBuilder message = new StringBuilder();
+        message.append("Hello "+initiateAlarmInputTO.getUser()+", Hope you are having a great day! ");
+        message.append("You are recieving this e-mail from the Budget Tracker (VikasPortfolio) application as you have crossed the Budget limit of $"+initiateAlarmInputTO.getBudgetAmount()+". Your total expenses add up to $"+expenses+" for the "+ initiateAlarmInputTO.getAlarmBy()+". ");
+        message.append("This alarm will now be marked as complete will be removed from the Budget Tracker application, please setup a new alarm, if you choose to do so. ");
+        initiateAlarmInputTO.setMessage(message.toString());
     }
     
     private void setIdToDbForLoansOpenClose(ChangeCustomerLoanStatusInputTO changeCustomerLoanStatusInputTo){

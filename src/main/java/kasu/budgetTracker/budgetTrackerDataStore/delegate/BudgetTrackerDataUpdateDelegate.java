@@ -34,5 +34,9 @@ public class BudgetTrackerDataUpdateDelegate {
     public void reOpenCustomerLoanDelegate(ChangeCustomerLoanStatusInputTO changeCustomerLoanStatusInputTo){
         budgetTrackerDataUpdateSO.updateLoanStatusToOpenService(changeCustomerLoanStatusInputTo);
     }
+    
+    public void initiateAlarmsDelegate(UserTO inputTo) {
+    	budgetTrackerDataUpdateSO.initiateAlarmsService(inputTo);
+    }
 
 }

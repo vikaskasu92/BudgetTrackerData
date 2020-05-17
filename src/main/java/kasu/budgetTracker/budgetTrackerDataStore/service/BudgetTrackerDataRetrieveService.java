@@ -25,6 +25,4 @@ public interface BudgetTrackerDataRetrieveService {
 
     public List<AllAlarmsResponseTO> retrieveAllAlarmsService(UserTO inputTo);
 
-    public void initiateAlarmsService(List<InitiateAlarmInputTO> initiateAlarmInputTO);
-
 }

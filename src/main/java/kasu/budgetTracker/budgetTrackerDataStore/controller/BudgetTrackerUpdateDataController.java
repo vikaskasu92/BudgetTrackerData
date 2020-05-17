@@ -1,14 +1,13 @@
 package kasu.budgetTracker.budgetTrackerDataStore.controller;
 
 import static kasu.budgetTracker.budgetTrackerDataStore.util.BudgetTrackerDataStoreContants.BUDGET_TRACKER_DATA_STORE;
+import static kasu.budgetTracker.budgetTrackerDataStore.util.BudgetTrackerDataStoreContants.CHECK_AND_INITIATE_ALARM;
 import static kasu.budgetTracker.budgetTrackerDataStore.util.BudgetTrackerDataStoreContants.CLOSE_LOAN;
 import static kasu.budgetTracker.budgetTrackerDataStore.util.BudgetTrackerDataStoreContants.RE_OPEN_LOAN;
 import static kasu.budgetTracker.budgetTrackerDataStore.util.BudgetTrackerDataStoreContants.UPDATE_INCOME_DATA;
 import static kasu.budgetTracker.budgetTrackerDataStore.util.BudgetTrackerDataStoreContants.UPDATE_INSURANCE_DATA;
 import static kasu.budgetTracker.budgetTrackerDataStore.util.BudgetTrackerDataStoreContants.UPDATE_LOAN;
 import static kasu.budgetTracker.budgetTrackerDataStore.util.BudgetTrackerDataStoreContants.UPDATE_PURCHASE_DATA;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,6 +23,7 @@ import kasu.budgetTracker.budgetTrackerDataStore.model.UpdateCustomerLoanInputTO
 import kasu.budgetTracker.budgetTrackerDataStore.model.UpdateIncomeAndTaxesInputTO;
 import kasu.budgetTracker.budgetTrackerDataStore.model.UpdateInsuranceInputTO;
 import kasu.budgetTracker.budgetTrackerDataStore.model.UpdatePurchaseInputTO;
+import kasu.budgetTracker.budgetTrackerDataStore.model.UserTO;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -61,6 +61,11 @@ public class BudgetTrackerUpdateDataController {
     @PostMapping(path=RE_OPEN_LOAN,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void reOpenCustomerLoan(@ModelAttribute ChangeCustomerLoanStatusInputTO changeCustomerLoanStatusInputTo) {
         budgetTrackerUpdateDelegate.reOpenCustomerLoanDelegate(changeCustomerLoanStatusInputTo);
+    }
+    
+    @PostMapping(path=CHECK_AND_INITIATE_ALARM,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void checkAndInitiateAlarm(UserTO inputTo) {
+    	budgetTrackerUpdateDelegate.initiateAlarmsDelegate(inputTo);
     }
 
 }

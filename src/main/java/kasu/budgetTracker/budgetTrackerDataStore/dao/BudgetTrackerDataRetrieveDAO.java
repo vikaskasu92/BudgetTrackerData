@@ -58,8 +58,6 @@ public class BudgetTrackerDataRetrieveDAO {
     private String retrieveRawDataByInsuranceAndDateCount;
     @Value("${retrieve.retrieveAllAlarms}")
     private String retrieveAllAlarms;
-    @Value("${store.deleteAlarmTriggered}")
-    private String deleteAlarmTriggered;
 
 
     public Map<String,Object> retrieveIncomeExpenseSummaryFromDB(ExpenseIncomeSummaryInputTO inputTo) {
@@ -190,28 +188,6 @@ public class BudgetTrackerDataRetrieveDAO {
             LOGGER.error("exception is "+e);
         }
         return allAlarmsResponseTO;
-    }
-
-
-    public Map<String,Object> initiateAlarmsCheck(InitiateAlarmInputTO initiateAlarmInputTO) {
-        budgetTrackerDataHelper.updateInitiateAlarmInputTOWithDates(initiateAlarmInputTO);
-        SimpleJdbcCall callSP = budgetTrackerDataHelper.callSPDR1(jdbcTemplate);
-        SqlParameterSource sqlParameter = budgetTrackerDataHelper.generateStoredProcedureValues(initiateAlarmInputTO.getUser(),initiateAlarmInputTO.getFromDate(), initiateAlarmInputTO.getToDate());
-        Map<String,Object> result = new HashMap<>();
-        try {
-            result = budgetTrackerDataHelper.retrieveFromDB(callSP,sqlParameter);
-        }catch(DataAccessException e) {
-            LOGGER.error("exception is "+e);
-        }
-        return result;
-    }
-
-    public void deleteAlarmTriggered(InitiateAlarmInputTO initiateAlarmInputTO) {
-        try {
-            jdbcTemplate.update(deleteAlarmTriggered, new Object[]{initiateAlarmInputTO.getId()});
-        }catch(DataAccessException e) {
-            LOGGER.error("exception is "+e);
-        }
     }
 
 }
