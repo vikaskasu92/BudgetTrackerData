@@ -100,9 +100,9 @@ public class BudgetTrackerDataUpdateSO implements  BudgetTrackerDataUpdateServic
     private void buildSubjectAndMessageForOverBudget(InitiateAlarmInputTO initiateAlarmInputTO, float expenses) {
         initiateAlarmInputTO.setSubject(initiateAlarmInputTO.getAlarmBy()+" spending limit crossed!");
         StringBuilder message = new StringBuilder();
-        message.append("Hello "+initiateAlarmInputTO.getUser()+", Hope you are having a great day! ");
-        message.append("You are recieving this e-mail from the Budget Tracker (VikasPortfolio) application as you have crossed the Budget limit of $"+initiateAlarmInputTO.getBudgetAmount()+". Your total expenses add up to $"+expenses+" for the "+ initiateAlarmInputTO.getAlarmBy()+". ");
-        message.append("This alarm will now be marked as complete will be removed from the Budget Tracker application, please setup a new alarm, if you choose to do so. ");
+        message.append("Hello User, Hope you are having a great day! ");
+        message.append("You are recieving this e-mail from the Budget Tracker (VikasPortfolio) application as you have crossed the Budget limit of $"+initiateAlarmInputTO.getBudgetAmount()+". Your total expenses add's up to $"+expenses+" for the "+ initiateAlarmInputTO.getAlarmBy()+". ");
+        message.append("This alarm will now be marked as complete and will be removed from the Budget Tracker application, please setup a new alarm, if you choose to do so. ");
         initiateAlarmInputTO.setMessage(message.toString());
     }
     
